@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using HogwartsPotions.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace HogwartsPotions.Models
+namespace HogwartsPotions.Data
 {
     public class HogwartsContext : DbContext
     {
