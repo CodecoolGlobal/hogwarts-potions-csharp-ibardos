@@ -20,5 +20,10 @@ namespace HogwartsPotions.Models.Entities
             HouseType = houseType;
             PetType = petType;
         }
+
+        public void ChooseRoom(Room room)
+        {
+            Room = room;
+        }
     }
 }
