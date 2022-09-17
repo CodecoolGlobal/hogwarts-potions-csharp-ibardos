@@ -13,5 +13,12 @@ namespace HogwartsPotions.Models.Entities
         public PetType PetType { get; set; }
         
         public Room Room { get; set; }
+
+        public Student(string name, HouseType houseType, PetType petType)
+        {
+            Name = name;
+            HouseType = houseType;
+            PetType = petType;
+        }
     }
 }
