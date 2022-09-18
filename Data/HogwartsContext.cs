@@ -31,7 +31,9 @@ namespace HogwartsPotions.Data
 
         public Task<List<Room>> GetAllRooms()
         {
-            throw new NotImplementedException();
+            return Rooms
+                .Include(room => room.Residents)
+                .ToListAsync();
         }
 
         public async Task UpdateRoom(Room room)
