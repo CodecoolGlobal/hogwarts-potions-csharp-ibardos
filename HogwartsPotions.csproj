@@ -24,8 +24,4 @@
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Daos\Implementations" />
-  </ItemGroup>
 </Project>
