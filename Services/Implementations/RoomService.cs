@@ -9,4 +9,5 @@ namespace HogwartsPotions.Services.Implementations;
 
 public class RoomService : IRoomService
 {
+    private readonly HogwartsContext _context;
 }
