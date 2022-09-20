@@ -22,9 +22,11 @@ namespace HogwartsPotions.Controllers
         }
 
         [HttpPost]
-        public async  Task AddRoom([FromBody] Room room)
+        public async Task<IActionResult> AddRoom([FromBody] Room roomToAdd)
         {
-            await _context.AddRoom(room);
+            await _roomService.AddRoom(roomToAdd);
+
+            return CreatedAtAction(nameof(AddRoom), roomToAdd);
         }
 
         [HttpGet("{id}")]

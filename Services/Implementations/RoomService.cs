@@ -15,4 +15,11 @@ public class RoomService : IRoomService
     {
         _context = context;
     }
+    
+    public async Task AddRoom(Room roomToAdd)
+    {
+        await _context.Rooms.AddAsync(roomToAdd);
+        await _context.SaveChangesAsync();
+    }
+    
 }
