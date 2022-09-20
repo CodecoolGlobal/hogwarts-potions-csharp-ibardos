@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HogwartsPotions.Controllers
 {
-    [ApiController, Route("room")]
+    [ApiController, Route("api/room")]
     public class RoomController : ControllerBase
     {
         private readonly HogwartsContext _context;
