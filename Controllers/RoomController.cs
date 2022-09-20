@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using HogwartsPotions.Data;
 using HogwartsPotions.Models.Entities;
+using HogwartsPotions.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HogwartsPotions.Controllers
@@ -9,17 +9,16 @@ namespace HogwartsPotions.Controllers
     [ApiController, Route("api/room")]
     public class RoomController : ControllerBase
     {
-        private readonly HogwartsContext _context;
+        private readonly IRoomService _roomService;
 
-        public RoomController(HogwartsContext context)
+        public RoomController(IRoomService roomService)
         {
-            _context = context;
-        }
 
         [HttpGet]
         public async Task<List<Room>> GetAllRooms()
         {
             return await _context.GetAllRooms();
+            _roomService = roomService;
         }
 
         [HttpPost]
