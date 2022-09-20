@@ -12,7 +12,10 @@ namespace HogwartsPotions.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Student>().ToTable("Student");
+            modelBuilder.Entity<Room>().ToTable("Room");
         }
     }
 }
