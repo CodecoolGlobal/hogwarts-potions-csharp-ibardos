@@ -30,4 +30,12 @@ public class RoomService : IRoomService
             .FirstOrDefaultAsync(room => room.ID == roomId);
     }
     
+    public async Task<IEnumerable<Room>> GetAllRooms()
+    {
+        return await _context
+            .Rooms
+            .Include(room => room.Residents)
+            .ToListAsync();
+    }
+
 }

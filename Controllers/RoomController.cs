@@ -14,11 +14,6 @@ namespace HogwartsPotions.Controllers
 
         public RoomController(IRoomService roomService)
         {
-
-        [HttpGet]
-        public async Task<List<Room>> GetAllRooms()
-        {
-            return await _context.GetAllRooms();
             _roomService = roomService;
         }
 
@@ -43,8 +38,10 @@ namespace HogwartsPotions.Controllers
             return room;
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<Room>> GetAllRooms()
         {
-            return await _context.GetRoom(id);
+            return await _roomService.GetAllRooms();
         }
 
         [HttpPut("{id}")]
