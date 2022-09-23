@@ -27,6 +27,7 @@ public class RoomService : IRoomService
         return await _context
             .Rooms
             .Include(room => room.Residents)
+            .AsNoTracking()
             .FirstOrDefaultAsync(room => room.ID == roomId);
     }
     
@@ -35,6 +36,7 @@ public class RoomService : IRoomService
         return await _context
             .Rooms
             .Include(room => room.Residents)
+            .AsNoTracking()
             .ToListAsync();
     }
 
