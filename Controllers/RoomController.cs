@@ -45,9 +45,23 @@ namespace HogwartsPotions.Controllers
         }
 
         [HttpPut("{id}")]
-        public void UpdateRoomById(long id, [FromBody] Room updatedRoom)
+        public async Task<ActionResult<Room>> UpdateRoomById(long id, [FromBody] Room roomToUpdateFromFrontend)
         {
-            _context.Update(updatedRoom);
+            if (id != roomToUpdateFromFrontend.ID)
+            {
+                return BadRequest("The provided Id is not correlates with the provided Room's Id.");
+            }
+            
+            Room roomToUpdateFromDb = await _roomService.GetRoomById(id);
+            
+            if (roomToUpdateFromDb is null)
+            {
+                return NotFound("Room with the defined ID does not exists in the database.");
+            }
+
+            await _roomService.UpdateRoomById(roomToUpdateFromFrontend);
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]

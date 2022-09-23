@@ -16,7 +16,7 @@ public interface IRoomService
     Task<IEnumerable<Room>> GetAllRooms();
     
     // Update
-    Task UpdateRoom(Room room);
+    Task UpdateRoomById(Room room);
     
     // Delete
     Task DeleteRoom(Room room);

@@ -40,4 +40,10 @@ public class RoomService : IRoomService
             .ToListAsync();
     }
 
+    public async Task UpdateRoomById(Room room)
+    {
+        _context.Rooms.Update(room);
+        await _context.SaveChangesAsync();
+    }
+
 }
