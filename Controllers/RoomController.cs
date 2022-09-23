@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using HogwartsPotions.Models.Entities;
 using HogwartsPotions.Services.Interfaces;
@@ -30,7 +31,18 @@ namespace HogwartsPotions.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Room> GetRoomById(long id)
+        public async Task<ActionResult<Room>> GetRoomById(long id)
+        {
+            Room room = await _roomService.GetRoomById(id);
+
+            if (room is null)
+            {
+                return NotFound("Room with the defined ID does not exists in the database.");
+            }
+            
+            return room;
+        }
+
         {
             return await _context.GetRoom(id);
         }
