@@ -11,7 +11,7 @@ public static class DbInitializer
     {
         context.Database.EnsureCreated();
 
-        // Check if SQL tables are exist, if so, no action needed
+        // Check if SQL tables are exist, if so, no action
         if (context.Students.Any() || context.Rooms.Any())
         {
             return;
@@ -48,17 +48,11 @@ public static class DbInitializer
         
         // Add to SQL database
         // Add Students
-        foreach (Student student in students)
-        {
-            context.Students.Add(student);
-        }
+        context.Students.AddRange(students);
+        context.SaveChanges();
         
         // Add Rooms
-        foreach (Room room in rooms)
-        {
-            context.Rooms.Add(room);
-        }
-        
+        context.Rooms.AddRange(rooms);
         context.SaveChanges();
     }
 }
