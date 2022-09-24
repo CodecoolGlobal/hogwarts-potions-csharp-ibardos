@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HogwartsPotions.Data;
 using HogwartsPotions.Models.Entities;
+using HogwartsPotions.Models.Enums;
 using HogwartsPotions.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,4 +54,14 @@ public class RoomService : IRoomService
         await _context.SaveChangesAsync();
     }
 
+    public Task<List<Room>> GetRoomsForRatOwners()
+    {
+        return _context
+            .Rooms
+            .Include(room => room.Residents)
+            .Where(room => room.Residents.All(resident => resident.PetType != PetType.Cat))
+            .Where(room => room.Residents.All(resident => resident.PetType != PetType.Owl))
+            .Select(room => room)
+            .ToListAsync();
+    }
 }

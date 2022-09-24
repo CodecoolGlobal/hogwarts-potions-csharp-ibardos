@@ -82,7 +82,7 @@ namespace HogwartsPotions.Controllers
         [HttpGet("rat-owners")]
         public async Task<List<Room>> GetRoomsForRatOwners()
         {
-            return await _context.GetRoomsForRatOwners();
+            return await _roomService.GetRoomsForRatOwners();
         }
     }
 }
