@@ -45,7 +45,7 @@ namespace HogwartsPotions.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Room>> UpdateRoomById(long id, [FromBody] Room roomToUpdateFromFrontend)
+        public async Task<IActionResult> UpdateRoomById(long id, [FromBody] Room roomToUpdateFromFrontend)
         {
             if (id != roomToUpdateFromFrontend.ID)
             {
@@ -65,7 +65,7 @@ namespace HogwartsPotions.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteRoomById(long id)
+        public async Task<IActionResult> DeleteRoomById(long id)
         {
             Room roomToDelete = await _roomService.GetRoomById(id);
 
@@ -80,7 +80,7 @@ namespace HogwartsPotions.Controllers
         }
 
         [HttpGet("rat-owners")]
-        public async Task<List<Room>> GetRoomsForRatOwners()
+        public async Task<IEnumerable<Room>> GetRoomsForRatOwners()
         {
             return await _roomService.GetRoomsForRatOwners();
         }
