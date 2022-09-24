@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 using HogwartsPotions.Data;
+using HogwartsPotions.Services.Implementations;
+using HogwartsPotions.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +29,8 @@ namespace HogwartsPotions
             services.AddControllersWithViews();
             services.AddControllers()
                 .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+            services.AddScoped<IRoomService, RoomService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
