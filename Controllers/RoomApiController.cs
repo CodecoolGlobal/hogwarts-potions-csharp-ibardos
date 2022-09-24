@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using HogwartsPotions.Models.Entities;
 using HogwartsPotions.Services.Interfaces;
@@ -8,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace HogwartsPotions.Controllers
 {
     [ApiController, Route("api/room")]
-    public class RoomController : ControllerBase
+    public class RoomApiController : ControllerBase
     {
         private readonly IRoomService _roomService;
 
-        public RoomController(IRoomService roomService)
+        public RoomApiController(IRoomService roomService)
         {
             _roomService = roomService;
         }
