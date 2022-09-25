@@ -11,4 +11,11 @@ public class Recipe
     public string Name { get; set; }
     public Student Student { get; set; }
     public List<Ingredient> Ingredients { get; set; }
+
+    public Recipe(string name, Student student, List<Ingredient> ingredients)
+    {
+        Name = name;
+        Student = student;
+        Ingredients = ingredients;
+    }
 }
