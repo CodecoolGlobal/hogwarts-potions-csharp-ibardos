@@ -6,6 +6,10 @@ public class Ingredient
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long ID { get; set; }
-
     public string Name { get; set; }
+
+    public Ingredient(string name)
+    {
+        Name = name;
+    }
 }
