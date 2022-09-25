@@ -7,6 +7,8 @@ namespace HogwartsPotions.Data
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<Recipe> Recipes { get; set; }
 
         public HogwartsContext(DbContextOptions<HogwartsContext> options) : base(options)
         {
@@ -16,6 +18,8 @@ namespace HogwartsPotions.Data
         {
             modelBuilder.Entity<Student>().ToTable("Student");
             modelBuilder.Entity<Room>().ToTable("Room");
+            modelBuilder.Entity<Ingredient>().ToTable("Ingredient");
+            modelBuilder.Entity<Recipe>().ToTable("Recipe");
         }
     }
 }
