@@ -12,7 +12,13 @@ public static class DbInitializer
         context.Database.EnsureCreated();
 
         // Check if SQL tables are exist, if so, no action
-        if (context.Students.Any() || context.Rooms.Any())
+        if (
+            context.Students.Any() ||
+            context.Rooms.Any() ||
+            context.Recipes.Any() ||
+            context.Potions.Any() ||
+            context.Ingredients.Any()
+            )
         {
             return;
         }
@@ -20,7 +26,7 @@ public static class DbInitializer
 
         // INITIAL DATA ADDITION
 
-        // Data creation (Student/Room)
+        // Data creation (Student, Room, Ingredient, Recipe, Potion)
         // Students
         Student harry = new Student("Harry Potter", HouseType.Gryffindor, PetType.Owl);
         Student hermione = new Student("Hermione Granger", HouseType.Gryffindor, PetType.Cat);
@@ -37,6 +43,7 @@ public static class DbInitializer
         HashSet<Room> rooms = new HashSet<Room>() { room1, room2, room3, room4, room5 };
 
         // Ingredients
+        // Ingredient collection for Recipes
 
         // Recipes
 
@@ -53,12 +60,12 @@ public static class DbInitializer
         // Room-Residents
         room1.AddResidents(new HashSet<Student> { harry, hermione, ron });
         room2.AddResident(draco);
+        // Ingredient-Potion
 
 
         // Add to SQL database
         // Add Students
         context.Students.AddRange(students);
-        context.SaveChanges();
 
         // Add Rooms
         context.Rooms.AddRange(rooms);
