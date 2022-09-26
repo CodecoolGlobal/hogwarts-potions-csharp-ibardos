@@ -32,7 +32,8 @@ public static class DbInitializer
         Student hermione = new Student("Hermione Granger", HouseType.Gryffindor, PetType.Cat);
         Student ron = new Student("Ron Weasley", HouseType.Gryffindor, PetType.Rat);
         Student draco = new Student("Draco Malfoy", HouseType.Slytherin, PetType.Owl);
-        HashSet<Student> students = new HashSet<Student>() { harry, hermione, ron, draco };
+        Student drStrange = new Student("Dr. Stephen Strange", HouseType.Ravenclaw, PetType.None);
+        HashSet<Student> students = new HashSet<Student>() { harry, hermione, ron, draco, drStrange };
 
         // Rooms
         Room room1 = new Room(5);
@@ -56,10 +57,13 @@ public static class DbInitializer
         hermione.ChooseRoom(room1);
         ron.ChooseRoom(room1);
         draco.ChooseRoom(room2);
+        drStrange.ChooseRoom(room3);
 
         // Room-Residents
         room1.AddResidents(new HashSet<Student> { harry, hermione, ron });
         room2.AddResident(draco);
+        room3.AddResident(drStrange);
+
         // Ingredient-Potion
 
 
