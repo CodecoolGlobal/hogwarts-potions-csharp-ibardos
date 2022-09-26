@@ -27,6 +27,10 @@ namespace HogwartsPotions.Models.Entities
             PetType = petType;
         }
 
+        /// <summary>
+        /// Registers a Room for a Student
+        /// </summary>
+        /// <param name="room"></param>
         public void ChooseRoom(Room room)
         {
             Room = room;
