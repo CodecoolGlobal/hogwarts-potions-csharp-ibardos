@@ -9,13 +9,14 @@ namespace HogwartsPotions.Models.Entities
         public long ID { get; set; }
 
         public int Capacity { get; set; }
-
-        public HashSet<Student> Residents { get; set; } = new HashSet<Student>();
+        public HashSet<Student> Residents { get; set; }
         public bool IsOccupied => Residents.Count == Capacity;
+
 
         public Room(int capacity)
         {
             Capacity = capacity;
+            Residents = new HashSet<Student>();
         }
 
         /// <summary>
