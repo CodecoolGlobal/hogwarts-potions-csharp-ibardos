@@ -20,7 +20,7 @@ namespace HogwartsPotions.Models.Entities
         }
 
         /// <summary>
-        /// Adds one resident into room.
+        /// Adds one resident into room
         /// </summary>
         /// <param name="resident"></param>
         public void AddResident(Student resident)
@@ -29,7 +29,7 @@ namespace HogwartsPotions.Models.Entities
         }
 
         /// <summary>
-        /// Adds all of the residents from a Hashset into room.
+        /// Adds all of the residents from a Hashset into room
         /// </summary>
         /// <param name="residents"></param>
         public void AddResidents(HashSet<Student> residents)
