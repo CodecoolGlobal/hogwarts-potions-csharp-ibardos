@@ -9,4 +9,11 @@ namespace HogwartsPotions.Controllers;
 [ApiController, Route("api/potion")]
 public class PotionApiController : ControllerBase
 {
+    private readonly IPotionService _potionService;
+
+    public PotionApiController(IPotionService potionService)
+    {
+        _potionService = potionService;
+    }
+
 }
