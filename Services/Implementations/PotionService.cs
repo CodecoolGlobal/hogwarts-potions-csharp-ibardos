@@ -15,4 +15,16 @@ public class PotionService : IPotionService
     {
         _context = context;
     }
+
+    public async Task<IEnumerable<Potion>> GetAllPotions()
+    {
+        return await _context
+            .Potions
+            .Include(potion => potion.Ingredients)
+            .Include(potion => potion.Student)
+            .Include(potion => potion.Student.Room)
+            .Include(potion => potion.Recipe)
+            .AsNoTracking()
+            .ToListAsync();
+    }
 }
