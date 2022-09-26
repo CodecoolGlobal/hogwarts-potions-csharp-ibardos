@@ -16,8 +16,9 @@ namespace HogwartsPotions.Models.Entities
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public PetType PetType { get; set; }
-        
+
         public Room Room { get; set; }
+
 
         public Student(string name, HouseType houseType, PetType petType)
         {
