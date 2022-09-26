@@ -16,4 +16,9 @@ public class PotionApiController : ControllerBase
         _potionService = potionService;
     }
 
+    [HttpGet]
+    public async Task<IEnumerable<Potion>> GetAllPotions()
+    {
+        return await _potionService.GetAllPotions();
+    }
 }
