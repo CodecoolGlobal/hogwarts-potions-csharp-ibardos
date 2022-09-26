@@ -60,6 +60,7 @@ public static class DbInitializer
         Recipe drStrange1 = new Recipe("Stephen Strange's discovery #1", drStrange, ingredientsForDrStrange1);
 
         // Potions
+        Potion ageingPotion = new Potion("Ageing potion", drStrange, BrewingStatus.Discovery, drStrange1);
 
 
         // Assignment (Student-Room / Room-Residents)
@@ -76,6 +77,7 @@ public static class DbInitializer
         room3.AddResident(drStrange);
 
         // Ingredient-Potion
+        ageingPotion.AddIngredients(ingredientsForDrStrange1);
 
 
         // Add to SQL database
@@ -91,6 +93,8 @@ public static class DbInitializer
         // Add Recipes
         context.Recipes.Add(drStrange1);
 
+        // Add Potions
+        context.Potions.Add(ageingPotion);
         context.SaveChanges();
     }
 }
