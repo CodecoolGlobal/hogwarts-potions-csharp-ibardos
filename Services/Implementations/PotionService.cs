@@ -9,4 +9,10 @@ namespace HogwartsPotions.Services.Implementations;
 
 public class PotionService : IPotionService
 {
+    private readonly HogwartsContext _context;
+
+    public PotionService(HogwartsContext context)
+    {
+        _context = context;
+    }
 }
