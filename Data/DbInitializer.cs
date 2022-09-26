@@ -44,6 +44,14 @@ public static class DbInitializer
         HashSet<Room> rooms = new HashSet<Room>() { room1, room2, room3, room4, room5 };
 
         // Ingredients
+        Ingredient agrippa = new Ingredient("Agrippa");
+        Ingredient batWing = new Ingredient("Bat wing");
+        Ingredient eyeball = new Ingredient("Eyeball");
+        Ingredient frogBrain = new Ingredient("Frog brain");
+        Ingredient vinegar = new Ingredient("Vinegar");
+        HashSet<Ingredient> ingredients = new HashSet<Ingredient>()
+            { agrippa, batWing, eyeball, frogBrain, vinegar };
+
         // Ingredient collection for Recipes
 
         // Recipes
@@ -73,6 +81,10 @@ public static class DbInitializer
 
         // Add Rooms
         context.Rooms.AddRange(rooms);
+
+        // Add Ingredients
+        context.Ingredients.AddRange(ingredients);
+
         context.SaveChanges();
     }
 }
