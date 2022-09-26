@@ -19,4 +19,9 @@ public class Recipe
         Student = student;
         Ingredients = ingredients;
     }
+
+    // Parameterless constructor to work with EF Core
+    public Recipe()
+    {
+    }
 }
