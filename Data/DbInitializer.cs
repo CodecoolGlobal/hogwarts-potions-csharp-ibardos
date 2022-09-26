@@ -53,8 +53,11 @@ public static class DbInitializer
             { agrippa, batWing, eyeball, frogBrain, vinegar };
 
         // Ingredient collection for Recipes
+        HashSet<Ingredient> ingredientsForDrStrange1 = new HashSet<Ingredient>
+            { agrippa, batWing, eyeball, frogBrain, vinegar };
 
         // Recipes
+        Recipe drStrange1 = new Recipe("Stephen Strange's discovery #1", drStrange, ingredientsForDrStrange1);
 
         // Potions
 
@@ -84,6 +87,9 @@ public static class DbInitializer
 
         // Add Ingredients
         context.Ingredients.AddRange(ingredients);
+
+        // Add Recipes
+        context.Recipes.Add(drStrange1);
 
         context.SaveChanges();
     }
