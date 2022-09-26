@@ -20,4 +20,19 @@ public class Potion
 
     public Recipe Recipe { get; set; }
 
+
+    public Potion(string name, Student student, BrewingStatus brewingStatus, Recipe recipe)
+    {
+        Name = name;
+        Student = student;
+        Ingredients = new HashSet<Ingredient>();
+        BrewingStatus = brewingStatus;
+        Recipe = recipe;
+    }
+
+    // Parameterless constructor to work with EF Core
+    public Potion()
+    {
+    }
+
 }
