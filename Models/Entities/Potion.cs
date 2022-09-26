@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text.Json.Serialization;
 using HogwartsPotions.Models.Enums;
 
 namespace HogwartsPotions.Models.Entities;
@@ -35,4 +37,31 @@ public class Potion
     {
     }
 
+    /// <summary>
+    /// Adds ingredient into Potion, up to the maximum number of 5 pieces
+    /// </summary>
+    /// <param name="ingredient"></param>
+    public void AddIngredient(Ingredient ingredient)
+    {
+        if (Ingredients.Count < MaxIngredientsForPotions)
+        {
+            Ingredients.Add(ingredient);
+        }
+    }
+
+    /// <summary>
+    /// Adds ingredients into Potion, up to the maximum number of 5 pieces
+    /// </summary>
+    /// <param name="ingredients"></param>
+    public void AddIngredients(IEnumerable<Ingredient> ingredients)
+    {
+        int remainingIngredientsAbleToAdd = MaxIngredientsForPotions - Ingredients.Count;
+
+        List<Ingredient> ingredientsToAdd = ingredients.ToList();
+
+        for (int i = 0; i < remainingIngredientsAbleToAdd; i++)
+        {
+            Ingredients.Add(ingredientsToAdd[i]);
+        }
+    }
 }
