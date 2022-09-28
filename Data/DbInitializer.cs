@@ -57,10 +57,10 @@ public static class DbInitializer
             { agrippa, batWing, eyeball, frogBrain, vinegar };
 
         // Recipes
-        Recipe drStrange1 = new Recipe("Stephen Strange's discovery #1", drStrange, ingredientsForDrStrange1);
+        Recipe drStrange1 = new Recipe("Dr. Stephen Strange's discovery #1", drStrange, ingredientsForDrStrange1);
 
         // Potions
-        Potion drStrangesPotion = new Potion("Stephen Strange's potion #1", drStrange, BrewingStatus.Discovery, drStrange1);
+        Potion drStrangesPotion = new Potion("Dr. Stephen Strange's potion #1", drStrange, BrewingStatus.Discovery, drStrange1);
 
 
         // Assignment (Student-Room / Room-Residents)
