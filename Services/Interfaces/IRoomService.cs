@@ -6,8 +6,7 @@ namespace HogwartsPotions.Services.Interfaces;
 
 public interface IRoomService
 {
-    // CRUD operations
-    
+    // CRUD operations - Entity Framework Core
     // Create
     Task AddRoom(Room room);
     
