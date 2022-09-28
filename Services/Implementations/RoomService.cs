@@ -58,11 +58,11 @@ public class RoomService : IRoomService
     {
         return _context
             .Rooms
-            .AsNoTracking()
             .Include(room => room.Residents)
             .Where(room => room.Residents.All(resident => resident.PetType != PetType.Cat))
             .Where(room => room.Residents.All(resident => resident.PetType != PetType.Owl))
             .Select(room => room)
+            .AsNoTracking()
             .ToListAsync();
     }
 }
