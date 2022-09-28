@@ -16,6 +16,13 @@ public class PotionService : IPotionService
         _context = context;
     }
 
+    
+    public async Task AddPotion(Potion potion)
+    {
+        await _context.Potions.AddAsync(potion);
+        await _context.SaveChangesAsync();
+    }
+    
     public async Task<IEnumerable<Potion>> GetAllPotions()
     {
         return await _context
