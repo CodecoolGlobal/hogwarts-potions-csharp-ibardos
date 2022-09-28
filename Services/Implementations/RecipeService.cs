@@ -55,4 +55,12 @@ public class RecipeService : IRecipeService
         return null;
     }
 
+    public async Task<int> GetNumberOfRecipesByStudent(Student student)
+    {
+        return await _context
+            .Recipes
+            .AsNoTracking()
+            .CountAsync(recipe => recipe.Student == student);
+    }
+    
 }
