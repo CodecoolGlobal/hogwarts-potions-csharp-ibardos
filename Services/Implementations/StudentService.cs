@@ -15,4 +15,10 @@ public class StudentService : IStudentService
         _context = context;
     }
 
+    public async Task<Student> GetStudentById(long studentId)
+    {
+        return await _context
+            .Students
+            .FirstOrDefaultAsync(student => student.ID == studentId);
+    }
 }
