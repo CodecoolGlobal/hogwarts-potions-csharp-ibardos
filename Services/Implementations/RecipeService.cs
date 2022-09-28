@@ -17,4 +17,11 @@ public class RecipeService : IRecipeService
         _context = context;
     }
 
+
+    public async Task AddRecipe(Recipe recipe)
+    {
+        await _context.Recipes.AddAsync(recipe);
+        await _context.SaveChangesAsync();
+    }
+
 }
