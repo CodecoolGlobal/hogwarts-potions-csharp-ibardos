@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HogwartsPotions.Data;
 using HogwartsPotions.Models.Entities;
+using HogwartsPotions.Models.Enums;
 using HogwartsPotions.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,4 +35,13 @@ public class PotionService : IPotionService
             .AsNoTracking()
             .ToListAsync();
     }
+    
+    public async Task<int> GetNumberOfPotionsByStudent(Student student)
+    {
+        return await _context
+            .Potions
+            .AsNoTracking()
+            .CountAsync(potion => potion.Student == student);
+    }
+    
 }
