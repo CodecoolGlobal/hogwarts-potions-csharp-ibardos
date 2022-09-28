@@ -1,22 +1,28 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HogwartsPotions.Models.Entities;
+using HogwartsPotions.Models.Enums;
 
 namespace HogwartsPotions.Services.Interfaces;
 
 public interface IPotionService
 {
-    // CRUD operations
-
+    // CRUD operations - Entity Framework Core
     // Create
-
+    Task AddPotion(Potion potion);
 
     // Read
     Task<IEnumerable<Potion>> GetAllPotions();
+    Task<int> GetNumberOfPotionsByStudent(Student student);
 
     // Update
 
 
     // Delete
     
+    
+    
+    // Helper methods
+    Potion CreatePotion(Student student, BrewingStatus brewingStatus, Recipe recipe, int studentsNextPotionNumber);
+
 }
