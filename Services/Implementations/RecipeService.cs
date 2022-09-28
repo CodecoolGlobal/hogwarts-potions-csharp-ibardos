@@ -63,4 +63,16 @@ public class RecipeService : IRecipeService
             .CountAsync(recipe => recipe.Student == student);
     }
     
+    
+    // Helper methods
+    public Recipe CreateRecipe(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber)
+    {
+        Recipe recipe = new Recipe(
+            name: $"{student.Name}'s discovery #{studentsNextRecipeNumber}",
+            student: student,
+            ingredients: ingredients
+        );
+
+        return recipe;
+    }
 }
