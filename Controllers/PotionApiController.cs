@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HogwartsPotions.Controllers;
 
-[ApiController, Route("api/potion")]
+[ApiController, Route("api/potions")]
 public class PotionApiController : ControllerBase
 {
     private readonly IPotionService _potionService;
