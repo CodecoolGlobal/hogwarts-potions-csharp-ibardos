@@ -10,4 +10,11 @@ namespace HogwartsPotions.Services.Implementations;
 
 public class RecipeService : IRecipeService
 {
+    private readonly HogwartsContext _context;
+
+    public RecipeService(HogwartsContext context)
+    {
+        _context = context;
+    }
+
 }
