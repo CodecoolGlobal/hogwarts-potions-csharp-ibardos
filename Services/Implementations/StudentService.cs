@@ -8,4 +8,11 @@ namespace HogwartsPotions.Services.Implementations;
 
 public class StudentService : IStudentService
 {
+    private readonly HogwartsContext _context;
+
+    public StudentService(HogwartsContext context)
+    {
+        _context = context;
+    }
+
 }
