@@ -44,4 +44,16 @@ public class PotionService : IPotionService
             .CountAsync(potion => potion.Student == student);
     }
     
+    // Helper methods
+    public Potion CreatePotion(Student student, BrewingStatus brewingStatus, Recipe recipe, int studentsNextPotionNumber)
+    {
+        Potion potion = new Potion(
+            name: $"{student.Name}'s potion #{studentsNextPotionNumber}",
+            student: student,
+            brewingStatus: brewingStatus,
+            recipe: recipe
+        );
+
+        return potion;
+    }
 }
