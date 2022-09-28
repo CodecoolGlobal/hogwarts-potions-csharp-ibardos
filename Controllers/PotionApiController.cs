@@ -68,4 +68,10 @@ public class PotionApiController : ControllerBase
         
         return CreatedAtAction(nameof(AddPotion), potionDiscovery);
     }
+
+    [HttpGet("{studentId}")]
+    public async Task<List<Potion>> GetPotionsOfAStudent(long studentId)
+    {
+        return await _potionService.GetPotionsOfAStudent(studentId);
+    }
 }

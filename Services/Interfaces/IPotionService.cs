@@ -14,6 +14,7 @@ public interface IPotionService
     // Read
     Task<IEnumerable<Potion>> GetAllPotions();
     Task<int> GetNumberOfPotionsByStudent(Student student);
+    Task<List<Potion>> GetPotionsOfAStudent(long studentId);
 
     // Update
 
@@ -24,5 +25,4 @@ public interface IPotionService
     
     // Helper methods
     Potion CreatePotion(Student student, BrewingStatus brewingStatus, Recipe recipe, int studentsNextPotionNumber);
-
 }

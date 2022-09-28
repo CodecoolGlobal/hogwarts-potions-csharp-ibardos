@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HogwartsPotions.Data;
 using HogwartsPotions.Models.Entities;
@@ -43,6 +44,21 @@ public class PotionService : IPotionService
             .AsNoTracking()
             .CountAsync(potion => potion.Student == student);
     }
+
+    public async Task<List<Potion>> GetPotionsOfAStudent(long studentId)
+    {
+        return await _context
+            .Potions
+            .AsNoTracking()
+            .Include(potion => potion.Student)
+            .Include(potion => potion.Student.Room)
+            .Include(potion => potion.Ingredients)
+            .Include(potion => potion.Recipe)
+            .Where(potion => potion.Student.ID == studentId)
+            .Select(potion => potion)
+            .ToListAsync();
+    }
+
     
     // Helper methods
     public Potion CreatePotion(Student student, BrewingStatus brewingStatus, Recipe recipe, int studentsNextPotionNumber)
