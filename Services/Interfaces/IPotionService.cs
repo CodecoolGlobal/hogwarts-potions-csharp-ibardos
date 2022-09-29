@@ -10,6 +10,7 @@ public interface IPotionService
     // CRUD operations - Entity Framework Core
     // Create
     Task AddPotion(Potion potion);
+    Task<Potion> StartNewPotion(Student student);
 
     // Read
     Task<IEnumerable<Potion>> GetAllPotions();

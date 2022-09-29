@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HogwartsPotions.Models.Entities;
@@ -73,5 +74,21 @@ public class PotionApiController : ControllerBase
     public async Task<List<Potion>> GetPotionsOfAStudent(long studentId)
     {
         return await _potionService.GetPotionsOfAStudent(studentId);
+    }
+
+    [HttpPost("brew")]
+    public async Task<IActionResult> StartNewPotion([FromBody] Student student)
+    {
+        Student studentFromDb = await _studentService.GetStudentById(student.ID);
+
+        // Check if Student is existing in DB with the defined studentId
+        if (studentFromDb is null)
+        {
+            return NotFound($"Student with studentId: {student.ID}, does not exist in the database.");
+        }
+        
+        Potion newPotionPersistedInDb = await _potionService.StartNewPotion(studentFromDb);
+
+        return CreatedAtAction(nameof(StartNewPotion), newPotionPersistedInDb);
     }
 }

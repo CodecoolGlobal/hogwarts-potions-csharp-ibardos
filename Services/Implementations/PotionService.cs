@@ -24,6 +24,20 @@ public class PotionService : IPotionService
         await _context.Potions.AddAsync(potion);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<Potion> StartNewPotion(Student student)
+    {
+        Potion newPotion = new Potion(
+            name: $"{student.Name}'s brewing.",
+            student: student,
+            brewingStatus: BrewingStatus.Brew,
+            recipe: null
+            );
+
+        await SavePotionToDb(newPotion);
+
+        return await GetLastBrewedPotion();
+    }
     
     public async Task<IEnumerable<Potion>> GetAllPotions()
     {
@@ -71,5 +85,16 @@ public class PotionService : IPotionService
         );
 
         return potion;
+    }
+    
+    private async Task<Potion> GetLastBrewedPotion()
+    {
+        return await _context
+            .Potions
+            .AsNoTracking()
+            .Include(potion => potion.Student)
+            .OrderByDescending(potion => potion.ID)
+            .Select(potion => potion)
+            .FirstOrDefaultAsync();
     }
 }
