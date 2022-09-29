@@ -19,7 +19,7 @@ public class PotionService : IPotionService
     }
 
     
-    public async Task AddPotion(Potion potion)
+    public async Task SavePotionToDb(Potion potion)
     {
         await _context.Potions.AddAsync(potion);
         await _context.SaveChangesAsync();

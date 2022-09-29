@@ -55,7 +55,7 @@ public class PotionApiController : ControllerBase
         {
             // Save Potion as Replica with already existing Recipe
             Potion potionReplica = _potionService.CreatePotion(student, BrewingStatus.Replica, recipeFromDb, studentsNextPotionNumber);
-            await _potionService.AddPotion(potionReplica);
+            await _potionService.SavePotionToDb(potionReplica);
             return CreatedAtAction(nameof(AddPotion), potionReplica);
         }
 
@@ -65,7 +65,7 @@ public class PotionApiController : ControllerBase
 
         // Save Potion to DB as Discovery
         Potion potionDiscovery = _potionService.CreatePotion(student, BrewingStatus.Discovery, recipeFromStudent, studentsNextPotionNumber);
-        await _potionService.AddPotion(potionDiscovery);
+        await _potionService.SavePotionToDb(potionDiscovery);
         
         return CreatedAtAction(nameof(AddPotion), potionDiscovery);
     }
