@@ -55,17 +55,6 @@ public class RecipeService : IRecipeService
         return null;
     }
 
-    // TODO check whether it is needed
-    public async Task<List<Recipe>> GetRecipesByStudent(Student student)
-    {
-        return await _context
-            .Recipes
-            .Where(recipe => recipe.Student == student)
-            .Select(recipe => recipe)
-            .AsNoTracking()
-            .ToListAsync();
-    }
-    
     public async Task<int> GetNumberOfRecipesByStudent(Student student)
     {
         return await _context

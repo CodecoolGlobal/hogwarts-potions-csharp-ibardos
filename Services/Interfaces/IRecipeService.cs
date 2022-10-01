@@ -12,7 +12,6 @@ public interface IRecipeService
 
     // Read
     Task<Recipe> GetRecipeByIngredients(HashSet<Ingredient> ingredients);
-    Task<List<Recipe>> GetRecipesByStudent(Student student);
     Task<int> GetNumberOfRecipesByStudent(Student student);
     Task<List<Recipe>> GetAllRecipes();
 
