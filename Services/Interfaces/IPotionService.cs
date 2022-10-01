@@ -16,9 +16,10 @@ public interface IPotionService
     Task<IEnumerable<Potion>> GetAllPotions();
     Task<int> GetNumberOfPotionsByStudent(Student student);
     Task<List<Potion>> GetPotionsOfAStudent(long studentId);
+    Task<Potion> GetPotionById(long potionId);
 
     // Update
-
+    Task FinalizePotionInDb(Potion potion, BrewingStatus brewingStatus, int studentsNextPotionNumber);
 
     // Delete
     
@@ -26,4 +27,7 @@ public interface IPotionService
     
     // Helper methods
     Potion CreatePotion(Student student, BrewingStatus brewingStatus, Recipe recipe, int studentsNextPotionNumber);
+    Task<bool> AddIngredientToPotion(Potion potionFromDb, Ingredient ingredient);
+    bool IsPotionHasAnIngredient(Potion potion, Ingredient ingredientFromStudent);
+    Task AddRecipeToPotion(Potion potion, Recipe recipe);
 }
