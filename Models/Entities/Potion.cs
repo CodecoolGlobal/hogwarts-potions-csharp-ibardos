@@ -37,17 +37,6 @@ public class Potion
     {
     }
 
-    /// <summary>
-    /// Adds ingredient into Potion, up to the maximum number of 5 pieces
-    /// </summary>
-    /// <param name="ingredient"></param>
-    public void AddIngredient(Ingredient ingredient)
-    {
-        if (Ingredients.Count < MaxIngredientsForPotions)
-        {
-            Ingredients.Add(ingredient);
-        }
-    }
 
     /// <summary>
     /// Adds ingredients into Potion, up to the maximum number of 5 pieces
