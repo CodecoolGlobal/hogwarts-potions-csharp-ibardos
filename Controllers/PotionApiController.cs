@@ -183,6 +183,11 @@ public class PotionApiController : ControllerBase
             }
         }
 
+        if (matchingRecipes.Count == 0)
+        {
+            return NotFound("Recipe with similar ingredients does not exists in the database so far.");
+        }
+
         return matchingRecipes
             .Select(recipe => recipe.Name)
             .ToList();
