@@ -15,7 +15,7 @@ public class Potion
 
     public string Name { get; set; }
     public Student Student { get; set; }
-    public HashSet<Ingredient> Ingredients { get; set; }
+    public HashSet<Ingredient> Ingredients { get; set; } = new HashSet<Ingredient>();
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public BrewingStatus BrewingStatus { get; set; }
@@ -27,7 +27,6 @@ public class Potion
     {
         Name = name;
         Student = student;
-        Ingredients = new HashSet<Ingredient>();
         BrewingStatus = brewingStatus;
         Recipe = recipe;
     }
