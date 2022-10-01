@@ -73,8 +73,16 @@ public class RecipeService : IRecipeService
             .AsNoTracking()
             .CountAsync(recipe => recipe.Student == student);
     }
-    
-    
+
+    public async Task<List<Recipe>> GetAllRecipes()
+    {
+        return await _context
+            .Recipes
+            .Include(recipe => recipe.Ingredients)
+            .ToListAsync();
+    }
+
+
     // Helper methods
     public Recipe CreateRecipe(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber)
     {

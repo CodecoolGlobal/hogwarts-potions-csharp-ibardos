@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using HogwartsPotions.Models.Entities;
@@ -143,5 +144,47 @@ public class PotionApiController : ControllerBase
         }
 
         return BadRequest("Cannot add more Ingredient to this Potion.");
+    }
+
+    [HttpGet("{potionId}/help")]
+    public async Task<ActionResult<List<string>>> GetPossibleRecipes(long potionId)
+    {
+        Potion potionBrewingFromDb = await _potionService.GetPotionById(potionId);
+
+        if (potionBrewingFromDb is null)
+        {
+            return NotFound($"Potion with potionId: {potionId}, does not exist in the database.");
+        }
+
+        List<Recipe> matchingRecipes = new();
+
+        List<Ingredient> potionBrewingIngredients = potionBrewingFromDb.Ingredients.ToList();
+        List<Recipe> recipesFromDb = await _recipeService.GetAllRecipes();
+
+        foreach (Recipe recipe in recipesFromDb)
+        {
+            bool ingredientFound = false;
+            foreach (Ingredient ingredientFromBrewing in potionBrewingIngredients)
+            {
+                foreach (Ingredient ingredientFromDb in recipe.Ingredients)
+                {
+                    if (ingredientFromBrewing.ID == ingredientFromDb.ID)
+                    {
+                        matchingRecipes.Add(recipe);
+                        ingredientFound = true;
+                        break;
+                    }
+                }
+                
+                if (ingredientFound)
+                {
+                    break;
+                }
+            }
+        }
+
+        return matchingRecipes
+            .Select(recipe => recipe.Name)
+            .ToList();
     }
 }
