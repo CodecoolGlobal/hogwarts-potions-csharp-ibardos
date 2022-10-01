@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using HogwartsPotions.Models.Entities;
 using HogwartsPotions.Models.Enums;
@@ -90,5 +91,57 @@ public class PotionApiController : ControllerBase
         Potion newPotionPersistedInDb = await _potionService.StartNewPotion(studentFromDb);
 
         return CreatedAtAction(nameof(StartNewPotion), newPotionPersistedInDb);
+    }
+
+    [HttpPut("{potionId}/add")]
+    public async Task<IActionResult> AddIngredientToPotion(long potionId, [FromBody] Ingredient ingredient)
+    {
+        Potion potionFromDb = await _potionService.GetPotionById(potionId);
+
+        // Check if Potion is existing in DB with the defined potionId
+        if (potionFromDb is null)
+        {
+            return NotFound($"Potion with potionId: {potionId}, does not exist in the database.");
+        }
+        
+        // Check if Potion in DB already has the Ingredient we're trying to add
+        if (_potionService.IsPotionHasAnIngredient(potionFromDb, ingredient))
+        {
+            return BadRequest($"Duplicate Ingredient! The Potion already has \"{ingredient.Name}\" ingredient.");
+        }
+
+        bool ingredientAddedToPotion = await _potionService.AddIngredientToPotion(potionFromDb, ingredient);
+
+        Potion updatedPotionFromDb = await _potionService.GetPotionById(potionId);
+        
+        // Check if the Potion has already 5 Ingredients, if so, check Recipes
+        // and set it's status accordingly (Discovery/Replica)
+        if (updatedPotionFromDb.Ingredients.Count == 5)
+        {
+            Recipe sameRecipeFromDb = await _recipeService.GetRecipeByIngredients(updatedPotionFromDb.Ingredients);
+            int studentsNextRecipeNumber = await _recipeService.GetNumberOfRecipesByStudent(updatedPotionFromDb.Student) + 1;
+            if (sameRecipeFromDb is not null)
+            {
+                await _potionService.FinalizePotionInDb(updatedPotionFromDb, BrewingStatus.Replica, studentsNextRecipeNumber);
+                await _potionService.AddRecipeToPotion(updatedPotionFromDb, sameRecipeFromDb);
+            }
+            else
+            {
+                await _potionService.FinalizePotionInDb(updatedPotionFromDb, BrewingStatus.Discovery, studentsNextRecipeNumber);
+                
+                // If Potion is Discovery, Recipe should also be persisted
+                Recipe newRecipe = _recipeService.CreateRecipe(updatedPotionFromDb.Student, updatedPotionFromDb.Ingredients,
+                    studentsNextRecipeNumber);
+                await _recipeService.AddRecipe(newRecipe);
+                await _potionService.AddRecipeToPotion(updatedPotionFromDb, newRecipe);
+            }
+        }
+        
+        if (ingredientAddedToPotion)
+        {
+            return CreatedAtAction(nameof(AddIngredientToPotion), updatedPotionFromDb);
+        }
+
+        return BadRequest("Cannot add more Ingredient to this Potion.");
     }
 }
