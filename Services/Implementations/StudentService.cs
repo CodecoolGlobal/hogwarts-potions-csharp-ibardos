@@ -15,6 +15,12 @@ public class StudentService : IStudentService
         _context = context;
     }
 
+    
+    /// <summary>
+    /// Get student object from database by studentId
+    /// </summary>
+    /// <param name="studentId"></param>
+    /// <returns>Student object</returns>
     public async Task<Student> GetStudentById(long studentId)
     {
         return await _context
