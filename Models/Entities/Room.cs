@@ -10,7 +10,6 @@ namespace HogwartsPotions.Models.Entities
 
         public int Capacity { get; set; }
         public HashSet<Student> Residents { get; set; }
-        public bool IsOccupied => Residents.Count == Capacity;
 
 
         public Room(int capacity)
