@@ -131,7 +131,7 @@ public class PotionApiController : ControllerBase
                 // If Potion is Discovery, Recipe should also be persisted
                 Recipe newRecipe = _recipeService.CreateRecipe(updatedPotionFromDb.Student, updatedPotionFromDb.Ingredients,
                     studentsNextRecipeNumber);
-                await _recipeService.AddRecipe(newRecipe);
+                await _recipeService.AddRecipeToDb(newRecipe);
                 await _potionService.AddRecipeToPotion(updatedPotionFromDb, newRecipe);
             }
         }

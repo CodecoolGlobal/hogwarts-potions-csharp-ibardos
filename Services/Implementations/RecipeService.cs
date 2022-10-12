@@ -17,7 +17,7 @@ public class RecipeService : IRecipeService
     }
 
 
-    public async Task AddRecipe(Recipe recipe)
+    public async Task AddRecipeToDb(Recipe recipe)
     {
         await _context.Recipes.AddAsync(recipe);
         await _context.SaveChangesAsync();

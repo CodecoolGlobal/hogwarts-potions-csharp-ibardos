@@ -8,7 +8,7 @@ public interface IRecipeService
 {
     // CRUD operations - Entity Framework Core
     // Create
-    Task AddRecipe(Recipe recipe);
+    Task AddRecipeToDb(Recipe recipe);
 
     // Read
     Task<Recipe> GetRecipeByIngredients(HashSet<Ingredient> ingredients);
