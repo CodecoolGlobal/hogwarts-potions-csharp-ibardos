@@ -25,7 +25,7 @@ public class RoomApiController : ControllerBase
         return CreatedAtAction(nameof(AddRoom), roomToAdd);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{roomId}")]
     public async Task<ActionResult<Room>> GetRoomById(long roomId)
     {
         Room room = await _roomService.GetRoomById(roomId);
@@ -44,7 +44,7 @@ public class RoomApiController : ControllerBase
         return await _roomService.GetAllRooms();
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{roomId}")]
     public async Task<IActionResult> UpdateRoomById(long roomId, [FromBody] Room roomToUpdateFromFrontend)
     {
         if (roomId != roomToUpdateFromFrontend.Id)
@@ -64,7 +64,7 @@ public class RoomApiController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{roomId}")]
     public async Task<IActionResult> DeleteRoomById(long roomId)
     {
         Room roomToDelete = await _roomService.GetRoomById(roomId);
