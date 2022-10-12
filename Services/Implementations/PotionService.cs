@@ -35,7 +35,7 @@ public class PotionService : IPotionService
             recipe: null
             );
 
-        await SavePotionToDb(newPotion);
+        await AddPotionToDb(newPotion);
 
         return await GetLastBrewedPotion();
     }
