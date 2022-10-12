@@ -16,22 +16,23 @@ public class RoomApiController : ControllerBase
         _roomService = roomService;
     }
 
+    
     [HttpPost]
     public async Task<IActionResult> AddRoom([FromBody] Room roomToAdd)
     {
-        await _roomService.AddRoom(roomToAdd);
+        await _roomService.AddRoomToDb(roomToAdd);
 
         return CreatedAtAction(nameof(AddRoom), roomToAdd);
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Room>> GetRoomById(long id)
+    [HttpGet("{roomId}")]
+    public async Task<ActionResult<Room>> GetRoomById(long roomId)
     {
-        Room room = await _roomService.GetRoomById(id);
+        Room room = await _roomService.GetRoomById(roomId);
 
         if (room is null)
         {
-            return NotFound("Room with the defined ID does not exists in the database.");
+            return NotFound($"Room with roomId: {roomId}, does not exists in the database.");
         }
 
         return room;
@@ -43,19 +44,19 @@ public class RoomApiController : ControllerBase
         return await _roomService.GetAllRooms();
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateRoomById(long id, [FromBody] Room roomToUpdateFromFrontend)
+    [HttpPut("{roomId}")]
+    public async Task<IActionResult> UpdateRoomById(long roomId, [FromBody] Room roomToUpdateFromFrontend)
     {
-        if (id != roomToUpdateFromFrontend.ID)
+        if (roomId != roomToUpdateFromFrontend.Id)
         {
-            return BadRequest("The provided Id is not correlates with the provided Room's Id.");
+            return BadRequest($"The provided roomId: {roomId}, does not match the provided Room object's Id: {roomToUpdateFromFrontend.Id}.");
         }
 
-        Room roomToUpdateFromDb = await _roomService.GetRoomById(id);
+        Room roomToUpdateFromDb = await _roomService.GetRoomById(roomId);
 
         if (roomToUpdateFromDb is null)
         {
-            return NotFound("Room with the defined ID does not exists in the database.");
+            return NotFound($"Room with roomId: {roomId}, does not exists in the database.");
         }
 
         await _roomService.UpdateRoomById(roomToUpdateFromFrontend);
@@ -63,14 +64,14 @@ public class RoomApiController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteRoomById(long id)
+    [HttpDelete("{roomId}")]
+    public async Task<IActionResult> DeleteRoomById(long roomId)
     {
-        Room roomToDelete = await _roomService.GetRoomById(id);
+        Room roomToDelete = await _roomService.GetRoomById(roomId);
 
         if (roomToDelete is null)
         {
-            return NotFound("Room with the defined ID does not exists in the database.");
+            return NotFound($"Room with roomId: {roomId}, does not exists in the database.");
         }
 
         await _roomService.DeleteRoom(roomToDelete);

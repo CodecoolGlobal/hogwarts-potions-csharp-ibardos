@@ -17,12 +17,33 @@ public class RecipeService : IRecipeService
     }
 
 
-    public async Task AddRecipe(Recipe recipe)
+    /// <summary>
+    /// Adds Recipe object to database, passed as an argument
+    /// </summary>
+    /// <param name="recipe"></param>
+    public async Task AddRecipeToDb(Recipe recipe)
     {
         await _context.Recipes.AddAsync(recipe);
         await _context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Gets all Recipe objects from database
+    /// </summary>
+    /// <returns>List of Recipe objects</returns>
+    public async Task<List<Recipe>> GetAllRecipes()
+    {
+        return await _context
+            .Recipes
+            .Include(recipe => recipe.Ingredients)
+            .ToListAsync();
+    }
+
+    /// <summary>
+    /// Gets a Recipe from the database, if any, which has the defined set of Ingredients
+    /// </summary>
+    /// <param name="ingredients"></param>
+    /// <returns>Recipe object from database, or null</returns>
     public async Task<Recipe> GetRecipeByIngredients(HashSet<Ingredient> ingredients)
     {
         // Create HashSet of Ingredient names from Student to compare
@@ -54,6 +75,11 @@ public class RecipeService : IRecipeService
         return null;
     }
 
+    /// <summary>
+    /// Gets the number of Recipe objects were made by a Student
+    /// </summary>
+    /// <param name="student"></param>
+    /// <returns>Number of Recipe objects</returns>
     public async Task<int> GetNumberOfRecipesByStudent(Student student)
     {
         return await _context
@@ -62,17 +88,17 @@ public class RecipeService : IRecipeService
             .CountAsync(recipe => recipe.Student == student);
     }
 
-    public async Task<List<Recipe>> GetAllRecipes()
-    {
-        return await _context
-            .Recipes
-            .Include(recipe => recipe.Ingredients)
-            .ToListAsync();
-    }
-
 
     // Helper methods
-    public Recipe CreateRecipe(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber)
+    
+    /// <summary>
+    /// Creates an "in memory" Recipe object
+    /// </summary>
+    /// <param name="student"></param>
+    /// <param name="ingredients"></param>
+    /// <param name="studentsNextRecipeNumber"></param>
+    /// <returns>Created "in memory" Recipe object</returns>
+    public Recipe CreateRecipeInMemory(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber)
     {
         Recipe recipe = new Recipe(
             name: $"{student.Name}'s discovery #{studentsNextRecipeNumber}",

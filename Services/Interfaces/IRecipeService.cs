@@ -8,12 +8,12 @@ public interface IRecipeService
 {
     // CRUD operations - Entity Framework Core
     // Create
-    Task AddRecipe(Recipe recipe);
+    Task AddRecipeToDb(Recipe recipe);
 
     // Read
+    Task<List<Recipe>> GetAllRecipes();
     Task<Recipe> GetRecipeByIngredients(HashSet<Ingredient> ingredients);
     Task<int> GetNumberOfRecipesByStudent(Student student);
-    Task<List<Recipe>> GetAllRecipes();
 
     // Update
 
@@ -23,5 +23,5 @@ public interface IRecipeService
     
     
     // Helper methods
-    Recipe CreateRecipe(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber);
+    Recipe CreateRecipeInMemory(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber);
 }

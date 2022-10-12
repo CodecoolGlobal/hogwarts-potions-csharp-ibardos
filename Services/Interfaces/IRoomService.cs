@@ -8,16 +8,16 @@ public interface IRoomService
 {
     // CRUD operations - Entity Framework Core
     // Create
-    Task AddRoom(Room room);
+    Task AddRoomToDb(Room room);
     
     // Read
     Task<Room> GetRoomById(long roomId);
-    Task<IEnumerable<Room>> GetAllRooms();
+    Task<List<Room>> GetAllRooms();
+    Task<List<Room>> GetRoomsForRatOwners();
     
     // Update
     Task UpdateRoomById(Room room);
     
     // Delete
     Task DeleteRoom(Room room);
-    Task<List<Room>> GetRoomsForRatOwners();
 }

@@ -9,25 +9,26 @@ public interface IPotionService
 {
     // CRUD operations - Entity Framework Core
     // Create
-    Task SavePotionToDb(Potion potion);
+    Task<Potion> AddPotionToDb(Potion potion);
     Task<Potion> StartNewPotion(Student student);
 
     // Read
-    Task<IEnumerable<Potion>> GetAllPotions();
-    Task<int> GetNumberOfPotionsByStudent(Student student);
-    Task<List<Potion>> GetPotionsOfAStudent(long studentId);
     Task<Potion> GetPotionById(long potionId);
+    Task<List<Potion>> GetAllPotions();
+    Task<List<Potion>> GetPotionsOfAStudent(long studentId);
+    Task<int> GetNumberOfPotionsByStudent(Student student);
 
     // Update
+    Task<bool> AddIngredientToPotion(Potion potionFromDb, Ingredient ingredient);
+    Task AddRecipeToPotion(Potion potion, Recipe recipe);
     Task FinalizePotionInDb(Potion potion, BrewingStatus brewingStatus, int studentsNextPotionNumber);
+
 
     // Delete
     
     
     
     // Helper methods
-    Potion CreatePotion(Student student, BrewingStatus brewingStatus, Recipe recipe, int studentsNextPotionNumber);
-    Task<bool> AddIngredientToPotion(Potion potionFromDb, Ingredient ingredient);
+    Potion CreatePotionInMemory(Student student, BrewingStatus brewingStatus, Recipe recipe, int studentsNextPotionNumber);
     bool IsPotionHasAnIngredient(Potion potion, Ingredient ingredientFromStudent);
-    Task AddRecipeToPotion(Potion potion, Recipe recipe);
 }

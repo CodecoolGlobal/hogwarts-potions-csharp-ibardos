@@ -26,6 +26,7 @@ public class PotionApiController : ControllerBase
         _recipeService = recipeService;
     }
 
+    
     [HttpGet]
     public async Task<IEnumerable<Potion>> GetAllPotions()
     {
@@ -37,10 +38,10 @@ public class PotionApiController : ControllerBase
     {
         Student student = await _studentService.GetStudentById(studentId);
 
-        // Check if Student is existing in DB with the defined studentId
+        // Check if Student is exists in DB with the defined studentId
         if (student is null)
         {
-            return NotFound($"Student with studentId: {studentId}, does not exist in the database.");
+            return NotFound($"Student with studentId: {studentId}, does not exists in the database.");
         }
 
         // Numbering used during Recipe & Potion name generation
@@ -54,18 +55,18 @@ public class PotionApiController : ControllerBase
         if (recipeFromDb is not null)
         {
             // Save Potion as Replica with already existing Recipe
-            Potion potionReplica = _potionService.CreatePotion(student, BrewingStatus.Replica, recipeFromDb, studentsNextPotionNumber);
-            await _potionService.SavePotionToDb(potionReplica);
+            Potion potionReplica = _potionService.CreatePotionInMemory(student, BrewingStatus.Replica, recipeFromDb, studentsNextPotionNumber);
+            await _potionService.AddPotionToDb(potionReplica);
             return CreatedAtAction(nameof(AddPotion), potionReplica);
         }
 
         // If Recipe with the same Ingredients does NOT exists in DB
         // Create new recipe based on Student's Ingredients
-        Recipe recipeFromStudent = _recipeService.CreateRecipe(student, potionFromStudent.Ingredients, studentsNextRecipeNumber);
+        Recipe recipeFromStudent = _recipeService.CreateRecipeInMemory(student, potionFromStudent.Ingredients, studentsNextRecipeNumber);
 
         // Save Potion to DB as Discovery
-        Potion potionDiscovery = _potionService.CreatePotion(student, BrewingStatus.Discovery, recipeFromStudent, studentsNextPotionNumber);
-        await _potionService.SavePotionToDb(potionDiscovery);
+        Potion potionDiscovery = _potionService.CreatePotionInMemory(student, BrewingStatus.Discovery, recipeFromStudent, studentsNextPotionNumber);
+        await _potionService.AddPotionToDb(potionDiscovery);
         
         return CreatedAtAction(nameof(AddPotion), potionDiscovery);
     }
@@ -79,12 +80,12 @@ public class PotionApiController : ControllerBase
     [HttpPost("brew")]
     public async Task<IActionResult> StartNewPotion([FromBody] Student student)
     {
-        Student studentFromDb = await _studentService.GetStudentById(student.ID);
+        Student studentFromDb = await _studentService.GetStudentById(student.Id);
 
         // Check if Student is existing in DB with the defined studentId
         if (studentFromDb is null)
         {
-            return NotFound($"Student with studentId: {student.ID}, does not exist in the database.");
+            return NotFound($"Student with studentId: {student.Id}, does not exists in the database.");
         }
         
         Potion newPotionPersistedInDb = await _potionService.StartNewPotion(studentFromDb);
@@ -97,10 +98,10 @@ public class PotionApiController : ControllerBase
     {
         Potion potionFromDb = await _potionService.GetPotionById(potionId);
 
-        // Check if Potion is existing in DB with the defined potionId
+        // Check if Potion is exists in DB with the defined potionId
         if (potionFromDb is null)
         {
-            return NotFound($"Potion with potionId: {potionId}, does not exist in the database.");
+            return NotFound($"Potion with potionId: {potionId}, does not exists in the database.");
         }
         
         // Check if Potion in DB already has the Ingredient we're trying to add
@@ -129,9 +130,9 @@ public class PotionApiController : ControllerBase
                 await _potionService.FinalizePotionInDb(updatedPotionFromDb, BrewingStatus.Discovery, studentsNextRecipeNumber);
                 
                 // If Potion is Discovery, Recipe should also be persisted
-                Recipe newRecipe = _recipeService.CreateRecipe(updatedPotionFromDb.Student, updatedPotionFromDb.Ingredients,
+                Recipe newRecipe = _recipeService.CreateRecipeInMemory(updatedPotionFromDb.Student, updatedPotionFromDb.Ingredients,
                     studentsNextRecipeNumber);
-                await _recipeService.AddRecipe(newRecipe);
+                await _recipeService.AddRecipeToDb(newRecipe);
                 await _potionService.AddRecipeToPotion(updatedPotionFromDb, newRecipe);
             }
         }
@@ -151,7 +152,7 @@ public class PotionApiController : ControllerBase
 
         if (potionBrewingFromDb is null)
         {
-            return NotFound($"Potion with potionId: {potionId}, does not exist in the database.");
+            return NotFound($"Potion with potionId: {potionId}, does not exists in the database.");
         }
 
         List<Recipe> matchingRecipes = new();
@@ -166,7 +167,7 @@ public class PotionApiController : ControllerBase
             {
                 foreach (Ingredient ingredientFromDb in recipe.Ingredients)
                 {
-                    if (ingredientFromBrewing.ID == ingredientFromDb.ID)
+                    if (ingredientFromBrewing.Id == ingredientFromDb.Id)
                     {
                         matchingRecipes.Add(recipe);
                         ingredientFound = true;
