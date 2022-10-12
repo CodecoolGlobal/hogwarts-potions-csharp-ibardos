@@ -11,9 +11,9 @@ public interface IRecipeService
     Task AddRecipeToDb(Recipe recipe);
 
     // Read
+    Task<List<Recipe>> GetAllRecipes();
     Task<Recipe> GetRecipeByIngredients(HashSet<Ingredient> ingredients);
     Task<int> GetNumberOfRecipesByStudent(Student student);
-    Task<List<Recipe>> GetAllRecipes();
 
     // Update
 
