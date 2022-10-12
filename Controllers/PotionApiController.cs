@@ -79,12 +79,12 @@ public class PotionApiController : ControllerBase
     [HttpPost("brew")]
     public async Task<IActionResult> StartNewPotion([FromBody] Student student)
     {
-        Student studentFromDb = await _studentService.GetStudentById(student.ID);
+        Student studentFromDb = await _studentService.GetStudentById(student.Id);
 
         // Check if Student is existing in DB with the defined studentId
         if (studentFromDb is null)
         {
-            return NotFound($"Student with studentId: {student.ID}, does not exist in the database.");
+            return NotFound($"Student with studentId: {student.Id}, does not exists in the database.");
         }
         
         Potion newPotionPersistedInDb = await _potionService.StartNewPotion(studentFromDb);
@@ -166,7 +166,7 @@ public class PotionApiController : ControllerBase
             {
                 foreach (Ingredient ingredientFromDb in recipe.Ingredients)
                 {
-                    if (ingredientFromBrewing.ID == ingredientFromDb.ID)
+                    if (ingredientFromBrewing.Id == ingredientFromDb.Id)
                     {
                         matchingRecipes.Add(recipe);
                         ingredientFound = true;

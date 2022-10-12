@@ -19,6 +19,6 @@ public class StudentService : IStudentService
     {
         return await _context
             .Students
-            .FirstOrDefaultAsync(student => student.ID == studentId);
+            .FirstOrDefaultAsync(student => student.Id == studentId);
     }
 }

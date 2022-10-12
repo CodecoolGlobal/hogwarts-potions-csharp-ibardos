@@ -69,7 +69,7 @@ public class PotionService : IPotionService
             .Include(potion => potion.Student.Room)
             .Include(potion => potion.Ingredients)
             .Include(potion => potion.Recipe)
-            .Where(potion => potion.Student.ID == studentId)
+            .Where(potion => potion.Student.Id == studentId)
             .Select(potion => potion)
             .ToListAsync();
     }
