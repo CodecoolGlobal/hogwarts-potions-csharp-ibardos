@@ -95,6 +95,7 @@ public static class DbInitializer
 
         // Add Potions
         context.Potions.Add(drStrangesPotion);
+        
         context.SaveChanges();
     }
 }
