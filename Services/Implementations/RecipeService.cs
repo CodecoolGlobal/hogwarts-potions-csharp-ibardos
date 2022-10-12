@@ -98,7 +98,7 @@ public class RecipeService : IRecipeService
     /// <param name="ingredients"></param>
     /// <param name="studentsNextRecipeNumber"></param>
     /// <returns>Created "in memory" Recipe object</returns>
-    public Recipe CreateRecipe(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber)
+    public Recipe CreateRecipeInMemory(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber)
     {
         Recipe recipe = new Recipe(
             name: $"{student.Name}'s discovery #{studentsNextRecipeNumber}",

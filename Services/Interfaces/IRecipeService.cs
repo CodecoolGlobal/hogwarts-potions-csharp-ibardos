@@ -23,5 +23,5 @@ public interface IRecipeService
     
     
     // Helper methods
-    Recipe CreateRecipe(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber);
+    Recipe CreateRecipeInMemory(Student student, HashSet<Ingredient> ingredients, int studentsNextRecipeNumber);
 }

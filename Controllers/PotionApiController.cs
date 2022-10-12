@@ -62,7 +62,7 @@ public class PotionApiController : ControllerBase
 
         // If Recipe with the same Ingredients does NOT exists in DB
         // Create new recipe based on Student's Ingredients
-        Recipe recipeFromStudent = _recipeService.CreateRecipe(student, potionFromStudent.Ingredients, studentsNextRecipeNumber);
+        Recipe recipeFromStudent = _recipeService.CreateRecipeInMemory(student, potionFromStudent.Ingredients, studentsNextRecipeNumber);
 
         // Save Potion to DB as Discovery
         Potion potionDiscovery = _potionService.CreatePotionInMemory(student, BrewingStatus.Discovery, recipeFromStudent, studentsNextPotionNumber);
@@ -130,7 +130,7 @@ public class PotionApiController : ControllerBase
                 await _potionService.FinalizePotionInDb(updatedPotionFromDb, BrewingStatus.Discovery, studentsNextRecipeNumber);
                 
                 // If Potion is Discovery, Recipe should also be persisted
-                Recipe newRecipe = _recipeService.CreateRecipe(updatedPotionFromDb.Student, updatedPotionFromDb.Ingredients,
+                Recipe newRecipe = _recipeService.CreateRecipeInMemory(updatedPotionFromDb.Student, updatedPotionFromDb.Ingredients,
                     studentsNextRecipeNumber);
                 await _recipeService.AddRecipeToDb(newRecipe);
                 await _potionService.AddRecipeToPotion(updatedPotionFromDb, newRecipe);
