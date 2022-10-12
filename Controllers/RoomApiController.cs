@@ -49,7 +49,7 @@ public class RoomApiController : ControllerBase
     {
         if (roomId != roomToUpdateFromFrontend.Id)
         {
-            return BadRequest($"The provided roomId: {roomId}, does not match the provided Room object's Id: {roomId}.");
+            return BadRequest($"The provided roomId: {roomId}, does not match the provided Room object's Id: {roomToUpdateFromFrontend.Id}.");
         }
 
         Room roomToUpdateFromDb = await _roomService.GetRoomById(roomId);
