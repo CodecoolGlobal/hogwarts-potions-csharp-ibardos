@@ -31,4 +31,4 @@
 
 ## Hints:
 - You can create a Postgre SQL database in your terminal, but I recommend to use <a href="https://www.pgadmin.org/download/">"pgAdmin 4"</a> if you prefer to use a GUI.
-- If you don't understand anything, Google it, or feel free to contact me.
+- If you don't understand something, Google it, or feel free to contact me.
