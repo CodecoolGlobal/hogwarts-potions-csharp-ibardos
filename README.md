@@ -25,7 +25,6 @@
 5. Open the project solution in your IDE
 6. Start the server in your IDE
 7. Test the API endpoints with the predefined HTTP requests in Postman
-8. Be happy
 
 <br>
 
